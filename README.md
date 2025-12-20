@@ -22,6 +22,20 @@ In the second part, I determined maximum cube count by color for each game
 by `fold`ing sets (`Map<String, Int>`, count by color) into a `MutableMap<String, Int>`.
 The current set entry count is put to the result map if it is bigger than the one already known for the entry color.
 
+## [Day 3](https://adventofcode.com/2023/day/3)
+
+In the first part, for each line I found all the numbers with a regex.
+To check if a number is a part number, the current line and the lines around
+must be searched for symbols within the indices of the found number plus 1 char before and after,
+so that adjacent symbols can also be found on the left, on the right and diagonally.
+
+For the second part, I decided to store all the part numbers adjacent to each gear
+in `Map<Int, MutableList<Long>>`. The key is the gear global index in the input.
+So, each number is checked for being adjacent not to any symbol but to a gear (`*`),
+and if it is, the number is stored.
+To get the answer once all the numbers are processed, I took only the gears
+which are adjacent to 2 numbers and summed their products.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
