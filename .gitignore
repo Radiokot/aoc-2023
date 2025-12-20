@@ -1,0 +1,8 @@
+.gradle
+.idea
+.kotlin/
+build
+out
+src/**/*.txt
+local.properties
+visualisation.png
