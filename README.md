@@ -36,6 +36,15 @@ and if it is, the number is stored.
 To get the answer once all the numbers are processed, I took only the gears
 which are adjacent to 2 numbers and summed their products.
 
+## [Day 4](https://adventofcode.com/2023/day/4)
+
+The first part is straightforward. Since number of points for card is a power of 2,
+I used bit shifting to get the required value.
+
+For the second part, I stored card counts by card index, which at the start are all `1`.
+Then, when processing cards one by one, I increased the count of each won card by `1`
+multiplied the count of the card being processed. Sum of counts at the end is the answer.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
