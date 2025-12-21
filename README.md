@@ -45,6 +45,20 @@ For the second part, I stored card counts by card index, which at the start are 
 Then, when processing cards one by one, I increased the count of each won card by `1`
 multiplied the count of the card being processed. Sum of counts at the end is the answer.
 
+## [Day 5](https://adventofcode.com/2023/day/5)
+
+While solving the first part, I spent most of the time parsing the input. Created a class for mapping,
+added a few helper functions, then the answer became easy to calculate.
+
+For the second part, I tried parallelized brute-force which gave the answer in around 2 minutes.
+I also had an alternative idea – to run mapping in reverse checking what is the min achievable location
+from 0 to 1,000,000,000. Since the answer is quite small (mine was 9,622,622), this could have worked too.
+
+Apparently the fast solution for the second part is to overlay map ranges with the value ranges
+so you end up with more ranges. Once it is done for all the maps, one after another,
+the answer is the minimal range start. I'm glad brute-force worked, felt sick thinking about overlaying
+ranges.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
