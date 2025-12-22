@@ -64,6 +64,12 @@ ranges.
 Perhaps this day can be solved mathematically, but a simple loop counting the winning boat charge durations
 worked for both parts.
 
+## [Day 7](https://adventofcode.com/2023/day/7)
+
+When solving this day, I did think hard on hand types and took some time for debugging, as I don't play cards.
+It was *absolutely necessary* to create an enum for types, with Javadoc, so I didn't have to Alt-Tab
+each time I forgot what a full house was.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
