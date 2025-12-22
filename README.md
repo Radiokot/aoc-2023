@@ -59,6 +59,11 @@ so you end up with more ranges. Once it is done for all the maps, one after anot
 the answer is the minimal range start. I'm glad brute-force worked, felt sick thinking about overlaying
 ranges.
 
+## [Day 6](https://adventofcode.com/2023/day/6)
+
+Perhaps this day can be solved mathematically, but a simple loop counting the winning boat charge durations
+worked for both parts.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
