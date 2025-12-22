@@ -70,6 +70,19 @@ When solving this day, I did think hard on hand types and took some time for deb
 It was *absolutely necessary* to create an enum for types, with Javadoc, so I didn't have to Alt-Tab
 each time I forgot what a full house was.
 
+## [Day 8](https://adventofcode.com/2023/day/8)
+
+For the first part, I just implemented what the problem described –
+a loop traversing `Map<String, Pair<String, String>>` while counting steps.
+
+For the second part, I initially extended the loop to follow multiple path at once,
+but it didn't seem to end. Then I thought that perhaps what must be found for each start node
+is the number of steps until the path is looped, yet the loop with this check didn't seem to end either
+(or maybe I implemented it wrong). Then I tried finding just step count to `Z` for each start node –
+the values were reasonable. Had a gut feeling that the answer had something to do with the least common multiple.
+To my surprise, it not just had – LCM of all the step counts to `Z` is the answer to the part 2.
+I don't understand why.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
