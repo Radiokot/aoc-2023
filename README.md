@@ -83,6 +83,22 @@ the values were reasonable. Had a gut feeling that the answer had something to d
 To my surprise, it not just had – LCM of all the step counts to `Z` is the answer to the part 2.
 I don't understand why.
 
+## [Day 9](https://adventofcode.com/2023/day/9)
+
+Interesting algorithm. Is this how value prediction really works?
+
+For the first part, I implemented iterative calculation of lines, pushing each line last value to a stack.
+Once done, to get the result, the stack of last values must be summed in this Fibonacci-like fashion:
+```kotlin
+lastValues.reduce { sumOfPrevious, value -> value + sumOfPrevious }
+```
+
+I didn't get what the catch was in the second part – I just saved each line first value instead,
+and changed the reducing function:
+```kotlin
+firstValues.reduce { differenceOfPrevious, value -> value - differenceOfPrevious }
+```
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
