@@ -99,6 +99,27 @@ and changed the reducing function:
 firstValues.reduce { differenceOfPrevious, value -> value - differenceOfPrevious }
 ```
 
+## [Day 10](https://adventofcode.com/2023/day/10)
+
+Did write a ton of code for this day.
+
+For the first part, implemented `PipeTraveler` class which follows the pipe and counts steps.
+For some reason I thought first part needed the coordinate of the furthest point, ended up spending
+extra time on what wasn't needed.
+
+For the second part, I used my traveler to trace the perimeter of the pipe.
+The rest drove me crazy – I tried ray casting but didn't manage to solve the edge case
+when the ray goes right through an edge. After giving up on ray casting, decided to flood the outside
+combined with the 3x map scale trick. Albeit tedious, transforming each cell into 3x3 makes the flood flow
+between parallel pipes casually – for example, for `|L`, instead of 2 occupied cells a computer sees 9
+```
+.#..#.
+.#..#.
+.#..##
+```
+with very obvious empty space between pipes. What's left after the flood is to count the insideness,
+which is done in a loop starting from `1` with the step of `3`, like if the map was scaled back. 
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
