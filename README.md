@@ -118,7 +118,20 @@ between parallel pipes casually – for example, for `|L`, instead of 2 occupied
 .#..##
 ```
 with very obvious empty space between pipes. What's left after the flood is to count the insideness,
-which is done in a loop starting from `1` with the step of `3`, like if the map was scaled back. 
+which is done in a loop starting from `1` with the step of `3`, like if the map was scaled back.
+
+## [Day 11](https://adventofcode.com/2023/day/11)
+
+First, I identified indices of rows and columns that need expansion.
+Then, I also obtained all the galaxies positions.
+
+For the first part, before calculating distances, I got the expanded copy of the map
+using `flatMapIndexed` for rows and `mapIndexed` for columns.
+
+For the second part, with such a big growth factor, it was obvious the map must not really expand.
+Instead, when calculating distances, the count of rows and columns to expand between the two galaxies
+multiplied by the expansion factor minus 1 must be added to the original distance.
+This solution of course works for the first part too.
 
 [aoc]: https://adventofcode.com
 

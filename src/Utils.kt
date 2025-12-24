@@ -41,3 +41,23 @@ fun BufferedImage.draw(doDraw: Graphics2D.() -> Any) = with(createGraphics()) {
 fun saveVisualisation(image: BufferedImage) {
     ImageIO.write(image, "png", File("visualisation.png"))
 }
+
+data class Position(
+    val row: Int,
+    val column: Int,
+) {
+    val left: Position
+        get() = Position(row, column - 1)
+
+    val right: Position
+        get() = Position(row, column + 1)
+
+    val up: Position
+        get() = Position(row - 1, column)
+
+    val down: Position
+        get() = Position(row + 1, column)
+
+    val x3: Position
+        get() = Position(1 + row * 3, 1 + column * 3)
+}
