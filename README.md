@@ -89,12 +89,14 @@ Interesting algorithm. Is this how value prediction really works?
 
 For the first part, I implemented iterative calculation of lines, pushing each line last value to a stack.
 Once done, to get the result, the stack of last values must be summed in this Fibonacci-like fashion:
+
 ```kotlin
 lastValues.reduce { sumOfPrevious, value -> value + sumOfPrevious }
 ```
 
 I didn't get what the catch was in the second part – I just saved each line first value instead,
 and changed the reducing function:
+
 ```kotlin
 firstValues.reduce { differenceOfPrevious, value -> value - differenceOfPrevious }
 ```
@@ -112,11 +114,13 @@ The rest drove me crazy – I tried ray casting but didn't manage to solve the e
 when the ray goes right through an edge. After giving up on ray casting, decided to flood the outside
 combined with the 3x map scale trick. Albeit tedious, transforming each cell into 3x3 makes the flood flow
 between parallel pipes casually – for example, for `|L`, instead of 2 occupied cells a computer sees 9
+
 ```
 .#..#.
 .#..#.
 .#..##
 ```
+
 with very obvious empty space between pipes. What's left after the flood is to count the insideness,
 which is done in a loop starting from `1` with the step of `3`, like if the map was scaled back.
 
@@ -132,6 +136,29 @@ For the second part, with such a big growth factor, it was obvious the map must 
 Instead, when calculating distances, the count of rows and columns to expand between the two galaxies
 multiplied by the expansion factor minus 1 must be added to the original distance.
 This solution of course works for the first part too.
+
+## [Day 12](https://adventofcode.com/2023/day/11), one star
+
+For the first part, I decided to brute-force all the toggle (on/off) combinations for unknown indices.
+When brute-forcing toggle combinations, it is convenient to think of each combination as a binary number
+where each bit represent each toggle state.
+For example, combinations for `??` in form of binary numbers are: `0(00)`, `1(01)`, `2(10)`, `3(11)`.
+To check them all, iterate from `0(00)` until `4(100)`.
+
+For the second part, brute-force doesn't work. I had a thought that perhaps the result is somehow a combination of
+arrangement counts for start (`record + ?`), middle (`? + record + ?`) and end (`? + record`)
+parts of an unfold record. The following formula works for some test cases:
+
+```kotlin
+arrangementsForEndingWithUnknown *
+        arrangementsForSurroundedWithUnknown *
+        arrangementsForSurroundedWithUnknown *
+        arrangementsForSurroundedWithUnknown *
+        arrangementsForStartingWithUnknown
+```
+
+I tried finding a hint, it is suggested to solve this part recursively, with memoization.
+However, at the moment I just don't get what the recursion is here.
 
 [aoc]: https://adventofcode.com
 
