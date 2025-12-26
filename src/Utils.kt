@@ -61,3 +61,12 @@ data class Position(
     val x3: Position
         get() = Position(1 + row * 3, 1 + column * 3)
 }
+
+fun <T> List<List<T>>.transpose(): List<List<T>> =
+    this[0]
+        .indices
+        .map { cellIndex ->
+            this.indices.map { rowIndex ->
+                this[rowIndex][cellIndex]
+            }
+        }

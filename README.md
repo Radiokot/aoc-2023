@@ -137,7 +137,7 @@ Instead, when calculating distances, the count of rows and columns to expand bet
 multiplied by the expansion factor minus 1 must be added to the original distance.
 This solution of course works for the first part too.
 
-## [Day 12](https://adventofcode.com/2023/day/11), one star
+## [Day 12](https://adventofcode.com/2023/day/12), one star
 
 For the first part, I decided to brute-force all the toggle (on/off) combinations for unknown indices.
 When brute-forcing toggle combinations, it is convenient to think of each combination as a binary number
@@ -159,6 +159,25 @@ arrangementsForEndingWithUnknown *
 
 I tried finding a hint, it is suggested to solve this part recursively, with memoization.
 However, at the moment I just don't get what the recursion is here.
+
+## [Day 13](https://adventofcode.com/2023/day/13)
+
+First of all, I spent some time parsing the input, as the patterns have different dimensions and I couldn't
+just chunk the list of lines. 
+Then I implemented a function that looks for a vertical mirror
+and returns the number of columns to the left of it. The function iterates over all the reasonable
+column counts and for each count checks if every pattern line is symmetrical (`leftPart == rightPart.reversed()`)
+if split after this column. Initially I wanted to use `substring()` in this function, but I quickly tired
+of being confused with index/count or inclusive/exclusive and ended up using
+more intuitive `drop()` and `take()` functions instead.
+
+As for the horizontal mirror search – I just transposed the pattern turning columns into lines,
+and re-used the vertical mirror function.
+
+For the second part, I copied the vertical mirror search function and adjusted it
+to look not for a perfect reflection, but rather for a number of differences between supposed reflections.
+If there is a single difference, then the dirty mirror is found. Therefore, my program doesn't know
+the exact smudge location – just that it is there somewhere.
 
 [aoc]: https://adventofcode.com
 
