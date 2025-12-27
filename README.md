@@ -222,6 +222,29 @@ return repeatingChunk[(1000000000 - observedTotals.size - 1) % repeatingChunkSiz
 
 Straightforward solution – just coded what was requested in the problem.
 
+## [Day 16](https://adventofcode.com/2023/day/16)
+
+Another map traveling problem. Although I reused a lot of 2D code from [Day 10](#day-10),
+the solution ended up quite verbose anyway.
+
+For the first part, I implemented a `BeamTip` class which is aware of its current position and direction,
+and can return tips for the next step. 
+So, if it is currently at a splitter, it returns 2 new tips at the sides of it, with opposite directions,
+and so on, and so on. Got massive `when { }` for all the cases. Tips reached a wall (edge) are discarded.
+
+Having the start `BeamTip`, I implemented the propagation loop with a queue for next tips,
+which runs until the queue is empty and tracks energized positions.
+Immediately realized my beams were trapped in an infinite loop.
+Added tracking of visited splitters to discard split beams for subsequent visits – worked for part 1.
+
+For the second part, I created not one start `BeamTip` but many, for each position along each wall,
+then checked them all in search for a maximum energized position count. Initially the check didn't end.
+I tried making checks `async`, but it didn't help. 
+Then I realized not only splitters but also mirrors cause infinite loops.
+Adjusted the propagation function not to track splitters, but rather positions + directions –
+if a position has been visited with the same direction, do not proceed. It helped, the answer is calculated
+rather almost instantly, and `async` really did speed it up. 
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot

@@ -60,6 +60,22 @@ data class Position(
 
     val x3: Position
         get() = Position(1 + row * 3, 1 + column * 3)
+
+    fun next(direction: Char): Position =
+        when (direction) {
+            'L' -> left
+            'R' -> right
+            'U' -> up
+            'D' -> down
+            else -> error("Unknown direction")
+        }
+}
+
+operator fun List<List<Char>>.get(position: Position): Char {
+    return this
+        .getOrNull(position.row)
+        ?.getOrNull(position.column)
+        ?: 'X' // Out of bounds
 }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> =

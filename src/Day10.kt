@@ -164,13 +164,7 @@ private class PipeTraveler(
     var stepCount = 0
 
     val nextPosition: Position
-        get() = when (direction) {
-            'L' -> position.left
-            'R' -> position.right
-            'U' -> position.up
-            'D' -> position.down
-            else -> error("Unknown direction")
-        }
+        get() = position.next(direction)
 
     fun move() {
         val nextPosition = nextPosition
