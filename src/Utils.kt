@@ -70,3 +70,10 @@ fun <T> List<List<T>>.transpose(): List<List<T>> =
                 this[rowIndex][cellIndex]
             }
         }
+
+fun <T> List<MutableList<T>>.rotatedClockwiseMutable(): List<MutableList<T>> =
+    indices.map { newRowIndex ->
+        this[0].indices.mapTo(mutableListOf()) { newColumnIndex ->
+            this[size - 1 - newColumnIndex][newRowIndex]
+        }
+    }

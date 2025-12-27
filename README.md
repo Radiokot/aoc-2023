@@ -179,6 +179,45 @@ to look not for a perfect reflection, but rather for a number of differences bet
 If there is a single difference, then the dirty mirror is found. Therefore, my program doesn't know
 the exact smudge location – just that it is there somewhere.
 
+## [Day 14](https://adventofcode.com/2023/day/14)
+
+For the first part, I implemented rock rolling (falling) function that for each `O` 
+finds the furthest free space above, before any `#` or other `O`, 
+and if there is such a place – moves the `O` there. For the total load calculation function,
+I used a `foldIndexed()` expression.
+
+For the second part, I first copy-pasted map clockwise rotation function from the year 2025
+and implemented a single cycle function, which rolls the rocks north and rotates the map clockwise 4 times.
+
+Then I just wanted to check if it could just be repeated 1,000,000,000 times, but it seemed to take forever.
+Then I started printing the map after each cycle hoping that the output was going to repeat itself after
+certain number of iterations. It did, but having realized this I didn't immediately understand
+how to programmatically figure out the repeating chunk and how to get the answer from it.
+
+To figure out the repeating chunk, I decided to make 10,000 iterations saving the total load.
+Then, having the list of observed values, I looked for a number from 2 to 1,000 that, 
+if used as the list chunk size, would result in having the least amount of distinct chunks.
+Then I just took the chunk of the found size.
+
+```kotlin
+val repeatingChunkSize = (2..1000).minBy { chunkSizeToCheck ->
+    observedTotals
+        .chunked(chunkSizeToCheck)
+        .distinct()
+        .size
+}
+val repeatingChunk = observedTotals.takeLast(repeatingChunkSize)
+```
+
+At this moment, 10,000 iterations are done, there are 999,990,000 iterations to go,
+but the output repeats itself and the repeating chunk is obtained. This means the result
+is somewhere in the repeating chunk. 
+Through trial and error, I figured out the "formula" for the answer, 
+in which I don't understand the purpose of `- 1`: 
+```kotlin
+return repeatingChunk[(1000000000 - observedTotals.size - 1) % repeatingChunkSize]
+```
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
