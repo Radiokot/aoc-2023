@@ -218,6 +218,10 @@ in which I don't understand the purpose of `- 1`:
 return repeatingChunk[(1000000000 - observedTotals.size - 1) % repeatingChunkSize]
 ```
 
+## [Day 15](https://adventofcode.com/2023/day/15)
+
+Straightforward solution – just coded what was requested in the problem.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
