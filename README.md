@@ -163,7 +163,7 @@ However, at the moment I just don't get what the recursion is here.
 ## [Day 13](https://adventofcode.com/2023/day/13)
 
 First of all, I spent some time parsing the input, as the patterns have different dimensions and I couldn't
-just chunk the list of lines. 
+just chunk the list of lines.
 Then I implemented a function that looks for a vertical mirror
 and returns the number of columns to the left of it. The function iterates over all the reasonable
 column counts and for each count checks if every pattern line is symmetrical (`leftPart == rightPart.reversed()`)
@@ -181,8 +181,8 @@ the exact smudge location – just that it is there somewhere.
 
 ## [Day 14](https://adventofcode.com/2023/day/14)
 
-For the first part, I implemented rock rolling (falling) function that for each `O` 
-finds the furthest free space above, before any `#` or other `O`, 
+For the first part, I implemented rock rolling (falling) function that for each `O`
+finds the furthest free space above, before any `#` or other `O`,
 and if there is such a place – moves the `O` there. For the total load calculation function,
 I used a `foldIndexed()` expression.
 
@@ -195,7 +195,7 @@ certain number of iterations. It did, but having realized this I didn't immediat
 how to programmatically figure out the repeating chunk and how to get the answer from it.
 
 To figure out the repeating chunk, I decided to make 10,000 iterations saving the total load.
-Then, having the list of observed values, I looked for a number from 2 to 1,000 that, 
+Then, having the list of observed values, I looked for a number from 2 to 1,000 that,
 if used as the list chunk size, would result in having the least amount of distinct chunks.
 Then I just took the chunk of the found size.
 
@@ -211,9 +211,10 @@ val repeatingChunk = observedTotals.takeLast(repeatingChunkSize)
 
 At this moment, 10,000 iterations are done, there are 999,990,000 iterations to go,
 but the output repeats itself and the repeating chunk is obtained. This means the result
-is somewhere in the repeating chunk. 
-Through trial and error, I figured out the "formula" for the answer, 
-in which I don't understand the purpose of `- 1`: 
+is somewhere in the repeating chunk.
+Through trial and error, I figured out the "formula" for the answer,
+in which I don't understand the purpose of `- 1`:
+
 ```kotlin
 return repeatingChunk[(1000000000 - observedTotals.size - 1) % repeatingChunkSize]
 ```
@@ -228,7 +229,7 @@ Another map traveling problem. Although I reused a lot of 2D code from [Day 10](
 the solution ended up quite verbose anyway.
 
 For the first part, I implemented a `BeamTip` class which is aware of its current position and direction,
-and can return tips for the next step. 
+and can return tips for the next step.
 So, if it is currently at a splitter, it returns 2 new tips at the sides of it, with opposite directions,
 and so on, and so on. Got massive `when { }` for all the cases. Tips reached a wall (edge) are discarded.
 
@@ -239,11 +240,29 @@ Added tracking of visited splitters to discard split beams for subsequent visits
 
 For the second part, I created not one start `BeamTip` but many, for each position along each wall,
 then checked them all in search for a maximum energized position count. Initially the check didn't end.
-I tried making checks `async`, but it didn't help. 
+I tried making checks `async`, but it didn't help.
 Then I realized not only splitters but also mirrors cause infinite loops.
 Adjusted the propagation function not to track splitters, but rather positions + directions –
 if a position has been visited with the same direction, do not proceed. It helped, the answer is calculated
-rather almost instantly, and `async` really did speed it up. 
+rather almost instantly, and `async` really did speed it up.
+
+## [Day 17](https://adventofcode.com/2023/day/17)
+
+I initially tried implementing breadth-first search, but the loop was endless.
+Eventually solved this day with a hint to use Dijkstra algorithm, with priority queue.
+For this problem, a node is a crucible state (position, direction, straight step count),
+adjacent nodes are positions to which the crucible can move from the current state,
+and a weight is a heat loss.
+
+Part 2 differs from part 1 in how next possible states (adjacent nodes) are selected
+and which states can actually stop at the finish (an ultra crucible from part 2 can't just stop).
+
+Not taking into account my pre-Dijkstra attempts,
+I spent considerable time debugging the start state and the step counting:
+
+- Start state direction (right or down) doesn't matter unless there are bugs in the solution
+- Start state straight step count is 0 and so the heat loss, because it just *appears* on the map
+- When the crucible turns and advances in the new direction, its straight step count becomes 1, not 0
 
 [aoc]: https://adventofcode.com
 

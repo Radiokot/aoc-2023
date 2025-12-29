@@ -71,6 +71,24 @@ data class Position(
         }
 }
 
+fun turnClockwise(direction: Char): Char =
+    when (direction) {
+        'U' -> 'R'
+        'R' -> 'D'
+        'D' -> 'L'
+        'L' -> 'U'
+        else -> error("Unknown direction")
+    }
+
+fun turnCounterClockwise(direction: Char): Char =
+    when (direction) {
+        'U' -> 'L'
+        'L' -> 'D'
+        'D' -> 'R'
+        'R' -> 'U'
+        else -> error("Unknown direction")
+    }
+
 operator fun List<List<Char>>.get(position: Position): Char {
     return this
         .getOrNull(position.row)
