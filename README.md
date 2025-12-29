@@ -264,6 +264,22 @@ I spent considerable time debugging the start state and the step counting:
 - Start state straight step count is 0 and so the heat loss, because it just *appears* on the map
 - When the crucible turns and advances in the new direction, its straight step count becomes 1, not 0
 
+## [Day 18](https://adventofcode.com/2023/day/18), one star
+
+Part 1 is the first AoC problem ever I successfully solved with ray casting.
+Finally managed to write a "part of polygon" check that correctly identifies all the inside points
+as well as points on the edges.
+
+The caveat that took me some time to figure out is that the digger doesn't start at the top left.
+It starts *somewhere* and can start digging up right away. This means the vertices of the polygon
+he digs can have negative coordinates, therefore loops from 0 do not work (answer too low).
+
+Here's a visualization of the dug area, where the crossing points to `0,0`:
+
+<img src="day18-visualisation.png" alt="Visualization" width=457 />
+
+As for the second part, I'll return to it later.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot

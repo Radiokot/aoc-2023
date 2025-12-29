@@ -30,6 +30,9 @@ fun Any?.println() = println(this)
 fun InputStrings.filterNotEmpty(): InputStrings =
     filter(String::isNotEmpty)
 
+fun createVisualisationImage(width: Int, height: Int): BufferedImage =
+    BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+
 fun BufferedImage.draw(doDraw: Graphics2D.() -> Any) = with(createGraphics()) {
     try {
         doDraw()
