@@ -280,6 +280,18 @@ Here's a visualization of the dug area, where the crossing points to `0,0`:
 
 As for the second part, I'll return to it later.
 
+## [Day 19](https://adventofcode.com/2023/day/19), one star
+
+The first part is straightforward, I implemented a `WorkflowRule` invokable class
+that returns takes ratings and returns a string if the corresponding rating matches the condition,
+or this is an unconditional rule. This was the first time I used `firstNotNullOf{ }`,
+to find the outcome of a workflow for a given part.
+
+The second part is not yet solved. My idea is to start with 4 (x,m,a,s) ranges of [1..4000] 
+and then iteratively apply rules. When a rule is applied, the corresponding range is split
+and the set turns into two. Then number of combinations is summed when a set reaches the "A" outcome. 
+However, I can't get the right answer even on the test case, what I get is too low.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
