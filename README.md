@@ -280,17 +280,30 @@ Here's a visualization of the dug area, where the crossing points to `0,0`:
 
 As for the second part, I'll return to it later.
 
-## [Day 19](https://adventofcode.com/2023/day/19), one star
+## [Day 19](https://adventofcode.com/2023/day/19)
 
 The first part is straightforward, I implemented a `WorkflowRule` invokable class
 that returns takes ratings and returns a string if the corresponding rating matches the condition,
 or this is an unconditional rule. This was the first time I used `firstNotNullOf{ }`,
 to find the outcome of a workflow for a given part.
 
-The second part is not yet solved. My idea is to start with 4 (x,m,a,s) ranges of [1..4000] 
-and then iteratively apply rules. When a rule is applied, the corresponding range is split
-and the set turns into two. Then number of combinations is summed when a set reaches the "A" outcome. 
-However, I can't get the right answer even on the test case, what I get is too low.
+For the second part, my idea was to start with 4 (x,m,a,s) ranges of [1..4000]
+and then iteratively apply workflows, rule by rule.
+When a rule is applied, it branches the set of ranges:
+
+- One branch has the corresponding rating range satisfying the rule, pointing to its outcome
+- Another branch (what remains) has the corresponding rating range not satisfying the rule,
+  it is used to apply subsequent rules of the workflow
+- When the last workflow rule is applied (the one without a condition),
+  what remained after applying all the previous workflow rules now points to this last rule outcome
+
+This process is repeated until there are no sets left pointing to another workflow.
+Meanwhile, when a set already points to the "A" outcome, the number of combinations from it is added to the total.
+This [comment on Reddit](https://www.reddit.com/r/adventofcode/comments/18lwcw2/comment/ke3iuxy/)
+visualizes this approach well.
+
+When I implemented the algorithm, instead of `acceptedCombinationCount +=` I wrote `acceptedCombinationCount =`
+and didn't notice it for hours, wondering if my idea was incorrect.
 
 [aoc]: https://adventofcode.com
 

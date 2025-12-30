@@ -19,8 +19,12 @@ fun main() {
 
     fun part2(input: InputStrings): Any {
         val workflows = input.getWorkflows()
-        val state = LinkedList<Pair<List<LongRange>, String>>()
 
+        // Take the maximum ranges and iteratively apply rules.
+        // Applying a rule branches the set of ranges:
+        // One branch has the corresponding range satisfying the rule,
+        // the remaining branch has the range not satisfying the rule.
+        val state = LinkedList<Pair<List<LongRange>, String>>()
         state += Pair(
             listOf(
                 (1..4000L), // x
@@ -32,25 +36,31 @@ fun main() {
         )
 
         var acceptedCombinationCount = 0L
+
         do {
             var (ratingRanges, outcome) = state.pop()
             val workflow = workflows[outcome]
+
             if (workflow == null) {
                 if (outcome == "A") {
-                    acceptedCombinationCount = ratingRanges.fold(1L) { product, range ->
+                    acceptedCombinationCount += ratingRanges.fold(1L) { product, range ->
                         product * (range.last + 1 - range.first)
                     }
                 }
                 continue
             }
+
             workflow.forEach { rule ->
                 if (rule.ratingIndex == null) {
+                    // For the last rule,
+                    // branch out what remained after applying all the rules in the workflow.
                     state.push(ratingRanges to rule.outcome)
                     return@forEach
                 }
 
                 val ratingRange = ratingRanges[rule.ratingIndex]
                 if (rule.operator == '>') {
+                    // Branch out with the range satisfying the rule.
                     state.push(
                         Pair(
                             ratingRanges
@@ -65,6 +75,7 @@ fun main() {
                             rule.outcome
                         )
                     )
+                    // Leave what remains for applying next rules.
                     ratingRanges =
                         ratingRanges
                             .toMutableList()
@@ -76,6 +87,7 @@ fun main() {
                                     )
                             }
                 } else if (rule.operator == '<') {
+                    // Branch out with the range satisfying the rule.
                     state.push(
                         Pair(
                             ratingRanges
@@ -90,6 +102,7 @@ fun main() {
                             rule.outcome
                         )
                     )
+                    // Leave what remains for applying next rules.
                     ratingRanges =
                         ratingRanges
                             .toMutableList()
@@ -103,12 +116,13 @@ fun main() {
                 }
             }
         } while (state.isNotEmpty())
+
         return acceptedCombinationCount
     }
 
     val input =
-        readInput("Day19_test")
-//        readInput("Day19")
+//        readInput("Day19_test")
+        readInput("Day19")
 
     part1(input).println()
     part2(input).println()
