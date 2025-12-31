@@ -305,6 +305,16 @@ visualizes this approach well.
 When I implemented the algorithm, instead of `acceptedCombinationCount +=` I wrote `acceptedCombinationCount =`
 and didn't notice it for hours, wondering if my idea was incorrect.
 
+## [Day 20](https://adventofcode.com/2023/day/20), skipped for now
+
+Currently, I cant make myself carefully read problem and fit the understanding of the described machines
+into my head.
+
+## [Day 21](https://adventofcode.com/2023/day/21), one star
+
+The first part is easily solved with the already existing 2D code.
+The second part is skipped – I'm not in a mood today for thinking hard on programming puzzles.
+
 [aoc]: https://adventofcode.com
 
 [github]: https://github.com/radiokot
